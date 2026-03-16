@@ -1,0 +1,17 @@
+name: Send whoami command to remote VM
+on:
+  workflow_call:
+
+jobs:
+  whoami:
+    name: WhoAmI 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Execute remote SSH command
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.AZURE_HOST }}
+          username: ${{ secrets.AZURE_USER }}
+          key: ${{ secrets.AZURE_SSH_KEY }} 
+          port: 22
+          script: whoami
