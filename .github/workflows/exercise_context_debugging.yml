@@ -1,7 +1,11 @@
 name: exercise - context debugging
 on:
   workflow_dispatch:
-
+   inputs:
+     name:
+       type: string
+       required: true
+    
 permissions:
   contents: read
 
@@ -21,11 +25,21 @@ jobs:
   echo-each-one-with-github-context:
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{ github.sha }}
-      - run: echo ${{ github.ref }}
-      - run: echo ${{ github.ref_name }}
-      - run: echo ${{ github.event_name }}
-      - run: echo ${{ github.repository }}
-      - run: echo ${{ github.actor }}
-      - run: echo ${{ github.run_id }}
-      - run: echo ${{ github.run_number }}
+      - run: echo "${{ github.sha }}"
+      - run: echo "${{ github.ref }}"
+      - run: echo "${{ github.ref_name }}"
+      - run: echo "${{ github.event_name }}"
+      - run: echo "${{ github.repository }}"
+      - run: echo "${{ github.actor }}"
+      - run: echo "${{ github.run_id }}"
+      - run: echo "${{ github.run_number }}"
+
+  custom-env-variable:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set Name
+        run: echo "NAME=${{ github.event.inputs.name }}" >> $GITHUB_ENV
+      - name: Use Name env context
+        run: echo "The name is $NAME"
+      - name: Use Name github context
+        run: echo "The name is ${{ env.NAME }}"
