@@ -17,4 +17,3 @@ jobs:
       - run: echo $GITHUB_ACTOR
       - run: echo $GITHUB_RUN_ID
       - run: echo $GITHUB_RUN_NUMBER
-      - run: echo $ENV_MY_VAR
