@@ -1,6 +1,6 @@
 name: Send whoami command to remote VM
 on:
-  workflow_call:
+  workflow_dispatch:
 
 jobs:
   whoami:
