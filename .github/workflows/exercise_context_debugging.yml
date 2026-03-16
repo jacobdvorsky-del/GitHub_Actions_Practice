@@ -9,5 +9,5 @@ jobs:
   echo-each-one:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Hello World!"
+      - run: echo $GITHUB_SHA
     
