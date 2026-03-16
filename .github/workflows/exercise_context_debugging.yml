@@ -1,10 +1,10 @@
 name: exercise - context debugging
 on:
   workflow_dispatch:
-   inputs:
-     name:
-       type: string
-       required: true
+    inputs:
+      name:
+        type: string
+        required: true
     
 permissions:
   contents: read
@@ -34,7 +34,7 @@ jobs:
       - run: echo "${{ github.run_id }}"
       - run: echo "${{ github.run_number }}"
 
-  custom-env-variable:
+  custom-env-variable: # This is redundant, it is just for practice
     runs-on: ubuntu-latest
     steps:
       - name: Set Name
