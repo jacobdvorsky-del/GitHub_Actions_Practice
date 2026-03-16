@@ -6,7 +6,7 @@ permissions:
   contents: read
 
 jobs:
-  echo-each-one:
+  echo-each-one-with-env-vars:
     runs-on: ubuntu-latest
     steps:
       - run: echo $GITHUB_SHA
@@ -17,3 +17,7 @@ jobs:
       - run: echo $GITHUB_ACTOR
       - run: echo $GITHUB_RUN_ID
       - run: echo $GITHUB_RUN_NUMBER
+  echo-each-one-with-github-context:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo ${{ github.sha }}
