@@ -3,15 +3,18 @@ on:
   workflow_dispatch:
 
 jobs:
-  whoami:
-    name: WhoAmI 
+  run:
+    name: Run
     runs-on: ubuntu-latest
     steps:
-      - name: Execute remote SSH command
+      - name: Execute remote ssh command
         uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.AZURE_HOST }}
           username: ${{ secrets.AZURE_USER }}
           key: ${{ secrets.AZURE_SSH_KEY }} 
           port: 22
-          script: whoami
+          script: |
+            whoami
+            hostname
+            uptime
