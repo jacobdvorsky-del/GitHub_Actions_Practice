@@ -1,0 +1,13 @@
+name: exercise - context debugging
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  echo-each-one:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Hello World!"
+    
