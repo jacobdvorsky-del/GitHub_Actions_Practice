@@ -17,7 +17,15 @@ jobs:
       - run: echo $GITHUB_ACTOR
       - run: echo $GITHUB_RUN_ID
       - run: echo $GITHUB_RUN_NUMBER
+      
   echo-each-one-with-github-context:
     runs-on: ubuntu-latest
     steps:
       - run: echo ${{ github.sha }}
+      - run: echo ${{ github.ref }}
+      - run: echo ${{ github.ref_name }}
+      - run: echo ${{ github.event_name }}
+      - run: echo ${{ github.repository }}
+      - run: echo ${{ github.actor }}
+      - run: echo ${{ github.run_id }}
+      - run: echo ${{ github.run_number }}
