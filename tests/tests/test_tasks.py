@@ -3,7 +3,7 @@ def test_get_tasks_returns_status_code_200(tasks_api):
     response = tasks_api.get_tasks()
     assert response.status_code == 200
 
-def test_create_task_returns_status_code_201(tasks_api,valid_task_data):
+def test_create_task_returns_status_code_201(tasks_api, valid_task_data):
     response = tasks_api.create_task(valid_task_data)
     assert response.status_code == 201
 

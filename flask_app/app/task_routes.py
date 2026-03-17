@@ -20,7 +20,7 @@ def get_task(id):
 def create_task():
     data = request.get_json()
     if not data or "title" not in data or data["title"] == "":
-        return jsonify({"message":"title is required"}),400
+        return jsonify({"message": "title is required"}), 400
     task = {
         "id": state["task_id_counter"],
         "title": data["title"],
@@ -47,4 +47,3 @@ def delete_task(id):
         return jsonify({"message": "task does not exist"}), 404
     tasks.remove(task)
     return jsonify({"message": "task deleted"}), 200
-    
