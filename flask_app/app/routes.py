@@ -1,6 +1,7 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify
 
 bp = Blueprint("api", __name__)
+
 
 @bp.route("/health")
 def health():
