@@ -12,6 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - run: echo "${{ github.ref }}"
+      - run: echo "${{ github.base_ref }}"
 
   test:
     name: Test
