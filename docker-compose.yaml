@@ -1,0 +1,7 @@
+services:
+  task-app:
+    image: ghcr.io/jacobdvorsky-del/task-api:latest
+    restart: unless-stopped
+    container_name: task-app
+    ports:
+      - "50090:5000"

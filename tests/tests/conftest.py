@@ -6,7 +6,7 @@ from api.tasks_api import TasksAPI
 
 @pytest.fixture
 def base_url():
-    return "http://localhost:3000"
+    return "http://localhost:50090"
 
 @pytest.fixture
 def health_api(base_url):
