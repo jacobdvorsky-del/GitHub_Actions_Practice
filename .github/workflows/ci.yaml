@@ -17,10 +17,10 @@ jobs:
     name: Test
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Test Job"
+      - run: echo "Test Job."
     
   build:
     name: Build
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Build Job"
+      - run: echo "Build Job."
