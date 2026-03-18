@@ -6,6 +6,7 @@ on:
 
 permissions:
   contents: read
+  packages: write
 
 concurrency: 
   group: cd-${{ github.ref }}
@@ -59,6 +60,7 @@ jobs:
     name: Deploy Production
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    needs: tests
     steps:
       - run: echo "Deploy on Azure VM here"
       
