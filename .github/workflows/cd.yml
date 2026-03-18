@@ -63,7 +63,15 @@ jobs:
     needs:
       - deploy-staging
     steps:
-      - run: echo "Run pytests here"
+      - uses: actions/checkout@v6
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.14' # Add python version to variable
+      - name: Install dependencies
+        run: pip install -r tests/requirements.txt
+      - name: Run Tests
+        run: pytest -v
 
   # Manual Approve before deploying on production
   deploy-production:
