@@ -1,6 +1,6 @@
 services:
   task-app:
-    image: ghcr.io/jacobdvorsky-del/task-api:latest
+    image: ghcr.io/jacobdvorsky-del/github_actions_practice/tasks_app:latest
     restart: unless-stopped
     container_name: task-app
     ports:
