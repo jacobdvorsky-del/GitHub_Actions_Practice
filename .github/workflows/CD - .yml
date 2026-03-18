@@ -1,0 +1,42 @@
+# Merge to main → build image → push to GHCR → deploy staging → verify → approve → deploy production.
+name: CD - on main Push
+on:
+  push:
+    branches: ['main']
+
+permissions:
+  contents: read
+
+# Concurency here:
+
+jobs:
+  build-and-push:
+    name: Build and Push
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - run: echo "This is Build Part"
+
+  deploy-staging:
+    name: Deploy on Staging
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - run: echo "Build on staging here." 
+
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - run: echo "Run pytests here"
+
+  # Manual Approve before deploying on production
+  deploy-production:
+    name: Deploy Production
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - run: echo "Deploy on Azure VM here"
+      
+    
