@@ -4,9 +4,17 @@ from api.health_api import HealthAPI
 from api.tasks_api import TasksAPI
 
 
+def pytest_addoption(parser):
+    parser.addoption(
+        "--api-url",
+        action="store",
+        default="http://localhost:50090",
+    )
+
+
 @pytest.fixture
-def base_url():
-    return "http://localhost:50090"
+def base_url(request):
+    return request.config.getoption("--api-url")
 
 
 @pytest.fixture
