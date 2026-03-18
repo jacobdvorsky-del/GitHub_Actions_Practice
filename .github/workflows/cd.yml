@@ -44,8 +44,18 @@ jobs:
     needs:
       - build-and-push
     steps:
-      - run: echo "Build on staging here." 
-
+      - name: Execute ssh commands on Staging VM
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.AZURE_HOST_STAGING }}
+          username: ${{ secrets.AZURE_USER_STAGING }}
+          key: ${{ secrets.AZURE_SSH_KEY_STAGING }}
+          script: |
+            docker compose -f https://github.com/jacobdvorsky-del/GitHub_Actions_Practice.git down
+            docker pull ghcr.io/jacobdvorsky-del/github_actions_practice/tasks_app:latest
+            docker compose -f https://github.com/jacobdvorsky-del/GitHub_Actions_Practice.git up -d
+      #Check 
+            
   tests:
     name: Tests
     runs-on: ubuntu-latest
@@ -53,7 +63,15 @@ jobs:
     needs:
       - deploy-staging
     steps:
-      - run: echo "Run pytests here"
+      - uses: actions/checkout@v6
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.14' # Add python version to variable
+      - name: Install dependencies
+        run: pip install -r tests/requirements.txt
+      - name: Run Tests
+        run: pytest -v
 
   # Manual Approve before deploying on production
   deploy-production:
