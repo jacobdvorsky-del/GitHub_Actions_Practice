@@ -77,7 +77,7 @@ jobs:
       - name: Run Tests
         run: pytest tests/tests -v --api-url "http://${{ secrets.AZURE_HOST_STAGING }}:50090"
 
-  # Manual Approve before deploying on production
+  #  Manual Approve before deploying on production
   deploy-production:
     name: Deploy Production
     runs-on: ubuntu-latest
