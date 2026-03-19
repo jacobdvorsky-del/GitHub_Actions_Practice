@@ -54,7 +54,7 @@ jobs:
             docker pull ghcr.io/jacobdvorsky-del/github_actions_practice/tasks_app:latest
             docker compose -f https://github.com/jacobdvorsky-del/GitHub_Actions_Practice.git down 
             docker compose -f https://github.com/jacobdvorsky-del/GitHub_Actions_Practice.git up -d
-            curl http://${{ secrets.AZURE_HOST_STAGING }}:50090:health
+            curl http://${{ secrets.AZURE_HOST_STAGING }}:50090/health
             
   tests:
     name: Tests
