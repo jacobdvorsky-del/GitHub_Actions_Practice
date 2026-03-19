@@ -71,7 +71,7 @@ jobs:
       - name: Install dependencies
         run: pip install -r tests/requirements.txt
       - name: Run Tests
-        run: pytest -v
+        run: pytest tests/tests -v --api-url "http://${{ secrets.AZURE_HOST_STAGING }}:50090"
 
   # Manual Approve before deploying on production
   deploy-production:
