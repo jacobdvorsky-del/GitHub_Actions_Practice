@@ -83,7 +83,19 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     needs: tests
+    environment: Production
     steps:
-      - run: echo "Deploy on Azure VM here"
+      - name: Execute ssh commands on Production VM
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.AZURE_HOST }}
+          username: ${{ secrets.AZURE_USER }}
+          key: ${{ secrets.AZURE_SSH_KEY }}
+          script: |
+            docker pull ghcr.io/jacobdvorsky-del/github_actions_practice/tasks_app:latest
+            docker compose -f https://github.com/jacobdvorsky-del/GitHub_Actions_Practice.git down 
+            docker compose -f https://github.com/jacobdvorsky-del/GitHub_Actions_Practice.git up -d
+            sleep 4
+            curl "http://localhost:50090/health"
       
     
