@@ -1,6 +1,8 @@
 services:
   task-app:
-    image: ghcr.io/jacobdvorsky-del/github_actions_practice/tasks_app:latest
+    environment:
+      - IMAGE_TAG=${IMAGE_TAG}
+    image: ghcr.io/jacobdvorsky-del/github_actions_practice/tasks_app:${IMAGE_TAG:-latest}
     restart: unless-stopped
     container_name: task-app
     ports:
