@@ -1,0 +1,39 @@
+name: Manual Deploy
+on:
+  workflow_dispatch:
+    inputs:
+      image-tag:
+        description: "An image tag to deploy"
+        required: true
+        type: string
+      environment:
+        description: "Environment to deploy on"
+        required: true
+        type: environment
+        
+
+permissions:
+  contents: read
+  packages: read
+
+# Add Concurency for only one manual deploy, cancel in progress false.
+jobs:
+  build-production:
+    name: Build Production
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: Production
+    steps:
+      - name: Execute ssh commands on Production VM
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.AZURE_HOST }}
+          username: ${{ secrets.AZURE_USER }}
+          key: ${{ secrets.AZURE_SSH_KEY }}
+          script: |
+            docker pull ${{ vars.GHCR_PATH }}/${{ vars.APP_NAME }}:${{ inputs.image-tag }}
+            docker compose -f https://github.com/jacobdvorsky-del/GitHub_Actions_Practice.git#${{ inputs.image-tag }} down || TRUE
+            IMAGE_TAG=${{ inputs.image-tag }} docker compose -f https://github.com/jacobdvorsky-del/GitHub_Actions_Practice.git#${{ inputs.image-tag }} up -d -y
+            sleep 4
+            curl "http://localhost:50090/health"
+      
