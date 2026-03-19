@@ -43,13 +43,14 @@ jobs:
     timeout-minutes: 10
     needs:
       - build-and-push
+    environment: Staging
     steps:
       - name: Execute ssh commands on Staging VM
         uses: appleboy/ssh-action@v1
         with:
-          host: ${{ secrets.AZURE_HOST_STAGING }}
-          username: ${{ secrets.AZURE_USER_STAGING }}
-          key: ${{ secrets.AZURE_SSH_KEY_STAGING }}
+          host: ${{ secrets.AZURE_HOST }}
+          username: ${{ secrets.AZURE_USER }}
+          key: ${{ secrets.AZURE_SSH_KEY }}
           script: |
             docker pull ghcr.io/jacobdvorsky-del/github_actions_practice/tasks_app:latest
             docker compose -f https://github.com/jacobdvorsky-del/GitHub_Actions_Practice.git down 
@@ -64,6 +65,7 @@ jobs:
     timeout-minutes: 10
     needs:
       - deploy-staging
+    environment: Staging
     steps:
       - uses: actions/checkout@v6
       - name: Setup Python
