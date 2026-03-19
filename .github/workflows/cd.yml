@@ -34,8 +34,8 @@ jobs:
         with:
           push: true
           tags: | 
-            ghcr.io/${{ steps.repo.outputs.name }}/tasks_app:latest
-            ghcr.io/${{ steps.repo.outputs.name }}/tasks_app:${{ github.sha }}
+            ${{ vars.GHCR_PATH }}/${{ vars.APP_NAME }}:latest
+            ${{ vars.GHCR_PATH }}/${{ vars.APP_NAME }}:${{ github.sha }}
 
   deploy-staging: # Refactor later
     name: Deploy on Staging # Is getting docker compose from docker sensitive for changes ? 
@@ -52,7 +52,7 @@ jobs:
           username: ${{ secrets.AZURE_USER }}
           key: ${{ secrets.AZURE_SSH_KEY }}
           script: |
-            docker pull ghcr.io/jacobdvorsky-del/github_actions_practice/tasks_app:latest
+            docker pull ${{ vars.GHCR_PATH }}/${{ vars.APP_NAME }}:latest
             docker compose -f https://github.com/jacobdvorsky-del/GitHub_Actions_Practice.git down 
             docker compose -f https://github.com/jacobdvorsky-del/GitHub_Actions_Practice.git up -d
             sleep 4
@@ -75,7 +75,7 @@ jobs:
       - name: Install dependencies
         run: pip install -r tests/requirements.txt
       - name: Run Tests
-        run: pytest tests/tests -v --api-url "http://${{ secrets.AZURE_HOST_STAGING }}:50090"
+        run: pytest tests/tests -v --api-url "http://${{ secrets.AZURE_HOST }}:50090"
 
   #  Manual Approve before deploying on production
   deploy-production:
@@ -92,7 +92,7 @@ jobs:
           username: ${{ secrets.AZURE_USER }}
           key: ${{ secrets.AZURE_SSH_KEY }}
           script: |
-            docker pull ghcr.io/jacobdvorsky-del/github_actions_practice/tasks_app:latest
+            docker pull ${{ vars.GHCR_PATH }}/${{ vars.APP_NAME }}:latest
             docker compose -f https://github.com/jacobdvorsky-del/GitHub_Actions_Practice.git down 
             docker compose -f https://github.com/jacobdvorsky-del/GitHub_Actions_Practice.git up -d
             sleep 4
