@@ -37,8 +37,8 @@ jobs:
             ghcr.io/${{ steps.repo.outputs.name }}/tasks_app:latest
             ghcr.io/${{ steps.repo.outputs.name }}/tasks_app:${{ github.sha }}
 
-  deploy-staging:
-    name: Deploy on Staging
+  deploy-staging: # Refactor later
+    name: Deploy on Staging # Is getting docker compose from docker sensitive for changes ? 
     runs-on: ubuntu-latest
     timeout-minutes: 10
     needs:
@@ -51,10 +51,10 @@ jobs:
           username: ${{ secrets.AZURE_USER_STAGING }}
           key: ${{ secrets.AZURE_SSH_KEY_STAGING }}
           script: |
-            docker compose -f https://github.com/jacobdvorsky-del/GitHub_Actions_Practice.git down
             docker pull ghcr.io/jacobdvorsky-del/github_actions_practice/tasks_app:latest
+            docker compose -f https://github.com/jacobdvorsky-del/GitHub_Actions_Practice.git down 
             docker compose -f https://github.com/jacobdvorsky-del/GitHub_Actions_Practice.git up -d
-      #Check 
+            curl http://${{ secrets.AZURE_HOST_STAGING }}:50090:health
             
   tests:
     name: Tests
