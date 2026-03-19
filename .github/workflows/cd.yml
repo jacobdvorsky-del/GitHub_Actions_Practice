@@ -53,8 +53,8 @@ jobs:
           key: ${{ secrets.AZURE_SSH_KEY }}
           script: |
             docker pull ${{ vars.GHCR_PATH }}/${{ vars.APP_NAME }}:${{ github.sha }}
-            docker compose -f https://github.com/jacobdvorsky-del/GitHub_Actions_Practice.git@${{ github.sha }} down || TRUE
-            IMAGE_TAG=${{ github.sha }} docker compose -f https://github.com/jacobdvorsky-del/GitHub_Actions_Practice.git@${{ github.sha }} up -d
+            docker compose -f https://github.com/jacobdvorsky-del/GitHub_Actions_Practice.git#${{ github.sha }} down || TRUE
+            IMAGE_TAG=${{ github.sha }} docker compose -f https://github.com/jacobdvorsky-del/GitHub_Actions_Practice.git#${{ github.sha }} up -d
             sleep 4
             curl "http://localhost:50090/health"
         
@@ -93,8 +93,8 @@ jobs:
           key: ${{ secrets.AZURE_SSH_KEY }}
           script: |
             docker pull ${{ vars.GHCR_PATH }}/${{ vars.APP_NAME }}:${{ github.sha }}
-            docker compose -f https://github.com/jacobdvorsky-del/GitHub_Actions_Practice.git@${{ github.sha }} down || TRUE
-            IMAGE_TAG=${{ github.sha }} docker compose -f https://github.com/jacobdvorsky-del/GitHub_Actions_Practice.git@${{ github.sha }} up -d
+            docker compose -f https://github.com/jacobdvorsky-del/GitHub_Actions_Practice.git#${{ github.sha }} down || TRUE
+            IMAGE_TAG=${{ github.sha }} docker compose -f https://github.com/jacobdvorsky-del/GitHub_Actions_Practice.git#${{ github.sha }} up -d
             sleep 4
             curl "http://localhost:50090/health"
       
