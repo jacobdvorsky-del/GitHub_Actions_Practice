@@ -55,7 +55,7 @@ jobs:
             docker compose -f https://github.com/jacobdvorsky-del/GitHub_Actions_Practice.git down 
             docker compose -f https://github.com/jacobdvorsky-del/GitHub_Actions_Practice.git up -d
       - name: Runm Curl to check status
-        run:  curl "http://${{ secrets.AZURE_HOST_STAGING }}:50090/health"
+        run:  curl "http://localhost:50090/health"
         
             
   tests:
