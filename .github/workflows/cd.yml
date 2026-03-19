@@ -53,7 +53,7 @@ jobs:
           key: ${{ secrets.AZURE_SSH_KEY }}
           script: |
             docker pull ${{ vars.GHCR_PATH }}/${{ vars.APP_NAME }}:latest
-            docker compose -f https://github.com/jacobdvorsky-del/GitHub_Actions_Practice.git down 
+            docker compose -f https://github.com/jacobdvorsky-del/GitHub_Actions_Practice.git down || TRUE
             docker compose -f https://github.com/jacobdvorsky-del/GitHub_Actions_Practice.git up -d
             sleep 4
             curl "http://localhost:50090/health"
@@ -93,7 +93,7 @@ jobs:
           key: ${{ secrets.AZURE_SSH_KEY }}
           script: |
             docker pull ${{ vars.GHCR_PATH }}/${{ vars.APP_NAME }}:latest
-            docker compose -f https://github.com/jacobdvorsky-del/GitHub_Actions_Practice.git down 
+            docker compose -f https://github.com/jacobdvorsky-del/GitHub_Actions_Practice.git down || TRUE
             docker compose -f https://github.com/jacobdvorsky-del/GitHub_Actions_Practice.git up -d
             sleep 4
             curl "http://localhost:50090/health"
