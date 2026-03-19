@@ -27,7 +27,7 @@ jobs:
     timeout-minutes: 10
     environment: ${{ inputs.environment }}
     steps:
-      - name: Execute ssh commands on Production VM
+      - name: Execute ssh commands on ${{ inputs.environment }}
         uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.AZURE_HOST }}
