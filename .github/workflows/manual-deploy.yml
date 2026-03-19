@@ -18,8 +18,8 @@ permissions:
 
 # Add Concurency for only one manual deploy, cancel in progress false.
 jobs:
-  build-production:
-    name: Build Production
+  deploy:
+    name: Deploy
     runs-on: ubuntu-latest
     timeout-minutes: 10
     environment: ${{ inputs.environment }}
