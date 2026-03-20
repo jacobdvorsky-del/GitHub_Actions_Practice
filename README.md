@@ -1,3 +1,7 @@
+
+[![CD - on main Push](https://github.com/jacobdvorsky-del/GitHub_Actions_Practice/actions/workflows/cd.yml/badge.svg)](https://github.com/jacobdvorsky-del/GitHub_Actions_Practice/actions/workflows/cd.yml)
+[![CI - Pull Request](https://github.com/jacobdvorsky-del/GitHub_Actions_Practice/actions/workflows/ci.yaml/badge.svg)](https://github.com/jacobdvorsky-del/GitHub_Actions_Practice/actions/workflows/ci.yaml)
+[![Manual Deploy](https://github.com/jacobdvorsky-del/GitHub_Actions_Practice/actions/workflows/manual-deploy.yml/badge.svg)](https://github.com/jacobdvorsky-del/GitHub_Actions_Practice/actions/workflows/manual-deploy.yml)
 # Overview
 Main focus of this project was to practice CI/CD Workflows for the application.  
 Application is dockerized and uses tagging based on commit sha.
@@ -61,3 +65,15 @@ flowchart LR
   - environment: staging/production
 - Jobs:
   - Deploy: Deploys image with tag from input on specified environment.
+
+# Run locally
+Project contains docker-compose.yaml so we can start application with command:
+` docker compose up -d `  
+This starts the container with :latest tag, we can run docker compose with specified tag with command ` IMAGE_TAG=<tag> docker compose up -d `
+
+# Deploy flow  
+When Code is merged to main, CD pipeline triggers. It builds the image from Dockerfile and adds tags to the image: latest and sha of the commit. Then it pushes the image to ghcr.  
+After push deploy to staging job starts. It connects to the VM with ssh and pulls the image, then it stops old container and starts the new one.  
+Then the Test job runs. it installs the pytest requirements and runs the tests against staging environment.  
+After tests, the production job requires manual trigger to start. After approval, the application is deployed to production the same way as it was deployed on staging.  
+If production deploy fails, run Manual Deploy workflow with previous stable sha tag.
