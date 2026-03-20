@@ -68,8 +68,9 @@ flowchart LR
 
 # Run locally
 Project contains docker-compose.yaml so we can start application with command:
-` docker compose up -d `  
-This starts the container with :latest tag, we can run docker compose with specified tag with command ` IMAGE_TAG=<tag> docker compose up -d `
+` docker compose up -d `
+This starts the container with :latest tag.  
+We can run docker compose with specified tag with command ` IMAGE_TAG=<tag> docker compose up -d `
 
 # Deploy flow  
 When Code is merged to main, CD pipeline triggers. It builds the image from Dockerfile and adds tags to the image: latest and sha of the commit. Then it pushes the image to ghcr.  
